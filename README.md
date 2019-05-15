@@ -12,6 +12,8 @@ much the models from the views.
 <br />
 2. Implement the Request from GIT User Search API and deal only with the simple
 case
+<br />
+3. Now that the normal use case is working, I take care of limit cases such as no result and too many request
 
 
 
