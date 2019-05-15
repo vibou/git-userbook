@@ -8,5 +8,13 @@ export default {
 
         const {items} = await response.json();
         return items.map(i => i.login);
-    } 
+    },
+
+    async timeBeforeResetInMS() {
+        const response = await fetch("https://api.github.com/rate_limit");
+        const {resources} = await response.json();
+        const {search} = resources;
+
+        return search.reset * 1000;
+    }   
 };

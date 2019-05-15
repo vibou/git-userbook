@@ -14,6 +14,14 @@ much the models from the views.
 case
 <br />
 3. Now that the normal use case is working, I take care of limit cases such as no result and too many request
+<br />
+4. The TooManyRequest use case is more complex to deal with. One way would be to retry the request after a certain amount of time. However if the field changes in between the new value has to be considered.
+
+    After some testing, it appears that a fairly high amount of time is required to unlock the rate limit. I also discovered that an api endpoint was available to check the state of the limit. This endpoint is not restricted. It gives the timestamp in second where the API endpoint search is going to be available again.
+
+    <br />
+
+    So I decided to disable the input field untill this timestamp is reached. In addition a message has to be displayed so that the user understand why the field is blocked.
 
 
 

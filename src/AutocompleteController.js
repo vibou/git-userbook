@@ -32,8 +32,13 @@ class AutocompleteController {
     async _updateAutocomplete(value) {
         if (!this._handler) {return};
 
-        const values = await this._handler(value);
-        this._setValues(values);
+        try {
+            const values = await this._handler(value);
+            this._setValues(values);
+        } catch (error) {
+            // Need to decide what to do if handler fails
+            
+        }
     }
 }
 
