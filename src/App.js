@@ -1,11 +1,17 @@
 import React from 'react';
 import Autocomplete from './Autocomplete';
 import AutocompleteController from './AutocompleteController';
+import GitRequest from './GitRequest';
+
+
 import './App.css';
 
 function App() {
 
   const controller = new AutocompleteController();
+  controller.handler = async (v) => {
+    return await GitRequest.searchUsers(v);
+  }
 
   return (
     <div className="App">

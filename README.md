@@ -3,6 +3,16 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Implementation Steps
 
+1. Start implementation of autocomplete component and its controller
+The aim here is to have a code as clean as possible while seperating as
+much the models from the views.
+    The  AutoComplete controller is therefore responsible for all the logic
+    behind the autocomplete process. The Autocomplete component is just displaying
+    the result.
+<br />
+2. Implement the Request from GIT User Search API and deal only with the simple
+case
+
 
 
 ## Available Scripts
