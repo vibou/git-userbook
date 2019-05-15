@@ -33,6 +33,13 @@ case
         - Add CSS and Bug Fix: retry search after too many request timed out.
         - Add Capability to select an item from auto complete list.
 
+Finish Exercise: <tt>Wed May 15 20:39:11 2019 +0200</tt>
+
+## Implementation Timeline
+- Main Feature Implementation (with all controls): 01H09
+- CSS and Extra Feature / Bug Fix: 00H36
+**Total Time spent: 01H45**
+
 
 
 ## Available Scripts
