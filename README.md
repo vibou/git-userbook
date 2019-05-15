@@ -22,6 +22,16 @@ case
     <br />
 
     So I decided to disable the input field untill this timestamp is reached. In addition a message has to be displayed so that the user understand why the field is blocked.
+<br />
+5. All Features are implemented
+        - start time: <tt>Wed May 15 18:54:16 2019 +0200</tt>
+        - end time: <tt>Wed May 15 20:03:02 2019 +0200</tt>
+
+<br />
+6. The idea now is to add some CSS to cheer everything up
+
+        - Add CSS and Bug Fix: retry search after too many request timed out.
+        - Add Capability to select an item from auto complete list.
 
 
 

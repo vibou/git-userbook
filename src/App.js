@@ -34,9 +34,11 @@ function App() {
           setTimeout(() => {
             clearInterval(interval);
             setDisableAutocomplete(0);
+            controller.forceUpdateAutocomplete();
           }, remainingTime);
         } else {
           setDisableAutocomplete(0);
+          controller.forceUpdateAutocomplete()
         }
 
       })();
@@ -53,6 +55,9 @@ function App() {
       </header>
       <div className="main-content">
         <Autocomplete placeholder="Search User" disabled={disableAutocomplete} controller={controller} />
+        {controller.select &&
+          <div>You have selected: {controller.select}</div>
+        }
       </div>
     </div>
   );

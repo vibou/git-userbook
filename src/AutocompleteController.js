@@ -4,6 +4,7 @@ class AutocompleteController {
     constructor() {
         [this._input, this._setInput] = useState("");
         [this._values, this._setValues] = useState([]);
+        [this._select, this._setSelect] = useState(undefined);
         
         this._handler = undefined;
     }
@@ -13,8 +14,19 @@ class AutocompleteController {
     }
 
     set input(newValue) {
+        this._setSelect(undefined);
         this._setInput(newValue);
         this._updateAutocomplete(newValue);
+    }
+
+    get select() {
+        return this._select;
+    }
+
+    set select(value) {
+        this._setInput(value);
+        this._setSelect(value);
+        this._setValues([]);
     }
 
     get values() {
@@ -29,6 +41,10 @@ class AutocompleteController {
         return this._handler;
     }
 
+    async forceUpdateAutocomplete() {
+        return this._updateAutocomplete(this.input);
+    }
+
     async _updateAutocomplete(value) {
         if (!this._handler) {return};
 
@@ -37,7 +53,7 @@ class AutocompleteController {
             this._setValues(values);
         } catch (error) {
             // Need to decide what to do if handler fails
-            
+
         }
     }
 }
