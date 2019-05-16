@@ -1,14 +1,31 @@
-export default {
-    async searchUsers(filter) {
-        if (filter.length === 0) { return [] }
-        const response = await fetch(`https://api.github.com/search/users?q=${filter}`);
-        if (response.status !== 200) {
-            throw new Error(`Status Error ${response.status}`);
+class GitRequest {
+    constructor() {
+        this._timeoutHandle = undefined;
+    }
+
+
+    async searchUsers(filter, delay=400) {
+        if (this._timeoutHandle) {
+            clearTimeout(this._timeoutHandle);
+            this._timeoutHandle = undefined;
         }
 
-        const {items} = await response.json();
-        return items.map(i => i.login);
-    },
+        return new Promise((resolve, fail) => {
+            this._timeoutHandle = setTimeout(async () => {
+                if (filter.length === 0) { 
+                    resolve([]); 
+                    return 
+                }
+                const response = await fetch(`https://api.github.com/search/users?q=${filter}`);
+                if (response.status !== 200) {
+                    fail(new Error(`Status Error ${response.status}`));
+                }
+    
+                const {items} = await response.json();
+                resolve(items.map(i => i.login));
+            }, delay);  
+        });
+    }
 
     async timeBeforeResetInMS() {
         const response = await fetch("https://api.github.com/rate_limit");
@@ -17,4 +34,8 @@ export default {
 
         return search.reset * 1000;
     }   
-};
+}
+
+const singleton = new GitRequest();
+
+export default singleton;
