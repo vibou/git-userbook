@@ -19,6 +19,7 @@ class GitRequest {
                 const response = await fetch(`https://api.github.com/search/users?q=${filter}`);
                 if (response.status !== 200) {
                     fail(new Error(`Status Error ${response.status}`));
+                    return;
                 }
     
                 const {items} = await response.json();

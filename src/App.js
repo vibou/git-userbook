@@ -11,7 +11,7 @@ function App() {
   const controller = new AutocompleteController();
   controller.handler = async (v) => {
     try {
-      return await GitRequest.searchUsers(v, 400);
+      return await GitRequest.searchUsers(v, 500);
     } catch (error) {
       setDisableAutocomplete(true);
       
