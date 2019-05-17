@@ -1,62 +1,27 @@
-import React, {useState} from 'react';
-import Autocomplete from './Autocomplete';
-import AutocompleteController from './AutocompleteController';
-import GitRequest from './GitRequest';
-
-
+import React from 'react';
+import Autocomplete from './components/Autocomplete';
+import AutocompleteController from './components/AutocompleteController';
 import './App.css';
+import GitAutocompleteHandler from './components/GitAutocompleteHandler';
 
 function App() {
-  const [disableAutocomplete, setDisableAutocomplete] = useState(0);
   const controller = new AutocompleteController();
-  controller.handler = async (v) => {
-    try {
-      return await GitRequest.searchUsers(v, 500);
-    } catch (error) {
-      setDisableAutocomplete(true);
-      
-      //Use anonymous function to not block the throw error
-      (async () => {
-        const resetTime = await GitRequest.timeBeforeResetInMS();
-        const now = new Date().getTime();
-
-        var remainingTime = resetTime - now;
-        
-        setDisableAutocomplete(remainingTime);
-
-        if (resetTime - now > 0) {
-          // Update timeout 
-          const interval = setInterval(() => {
-            const now = new Date().getTime();
-            var remainingTime = resetTime - now;
-            setDisableAutocomplete(remainingTime);
-          }, 1000);
-          setTimeout(() => {
-            clearInterval(interval);
-            setDisableAutocomplete(0);
-            controller.forceUpdateAutocomplete();
-          }, remainingTime);
-        } else {
-          setDisableAutocomplete(0);
-          controller.forceUpdateAutocomplete()
-        }
-
-      })();
-
-
-      throw error;
-    }
-  }
-
+  const handler = new GitAutocompleteHandler(controller);
+  const {select} = controller;
   return (
     <div className="App">
       <header className="App-header">
         <h1>Git UserBook</h1>
       </header>
       <div className="main-content">
-        <Autocomplete placeholder="Search User" disabled={disableAutocomplete} controller={controller} />
+        <Autocomplete placeholder="Search User" disabled={handler.disabled} controller={controller} />
         {controller.select &&
-          <div>You have selected: {controller.select}</div>
+          <div className="h-card">
+            <div className="avatar">
+              <img src={select.avatar_url} alt={select.login} />
+            </div>
+            {select.login}
+          </div>
         }
       </div>
     </div>

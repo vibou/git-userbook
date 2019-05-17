@@ -24,7 +24,7 @@ class AutocompleteController {
     }
 
     set select(value) {
-        this._setInput(value);
+        this._setInput(value.login);
         this._setSelect(value);
         this._setValues([]);
     }

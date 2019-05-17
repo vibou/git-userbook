@@ -3,6 +3,13 @@ class GitRequest {
         this._timeoutHandle = undefined;
     }
 
+    _mapUserItem(item) {
+        const {login, avatar_url} = item;
+        return {
+            login,
+            avatar_url
+        };
+    }
 
     async searchUsers(filter, delay=400) {
         if (this._timeoutHandle) {
@@ -23,7 +30,7 @@ class GitRequest {
                 }
     
                 const {items} = await response.json();
-                resolve(items.map(i => i.login));
+                resolve(items.map(i => this._mapUserItem(i)));
             }, delay);  
         });
     }

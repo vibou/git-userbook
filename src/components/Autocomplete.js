@@ -20,8 +20,16 @@ function Autocomplete(props) {
                 ) : (
                     <ul className="autocomplete-list">
                     {
-                        controller.values.map((v, idx) => 
-                            <li className="autocomplete-list-item" key={idx} onClick={() => controller.select = v}>{v}</li>)
+                        controller.values.map((v, idx) => {
+                            return (                        
+                                <li className="autocomplete-list-item" key={idx} onClick={() => controller.select = v}>
+                                    <div className="avatar">
+                                        <img src={v.avatar_url} alt={v.login}/>
+                                    </div>
+                                    {v.login}
+                                </li>
+                            )
+                        })
                     }
                  </ul>
                 )  
